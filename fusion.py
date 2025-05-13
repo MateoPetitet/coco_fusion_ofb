@@ -9,13 +9,12 @@ import json
 import random
 import shutil
 from PIL import Image
-from collections import defaultdict
 
 def load_jsons(json_paths):
     return [json.load(open(path, 'r')) for path in json_paths]
 
 def get_unique_filename(existing_names, original_name):
-    """Renvoie un nom de fichier unique s’il y a des doublons"""
+    """Renvoie un nom de fichier unique si doublon"""
     if original_name not in existing_names:
         existing_names.add(original_name)
         return original_name
@@ -43,6 +42,7 @@ def merge_datasets(datasets):
     filename_set = set()
 
     for data in datasets:
+        # === Catégories ===
         for cat in data["categories"]:
             if cat["name"] not in categories_set:
                 categories_set.add(cat["name"])
@@ -56,36 +56,51 @@ def merge_datasets(datasets):
                 )
 
         id_map = {}
-        for img in data["images"]:
-            new_id = img["id"] + image_id_offset
-            original_name = img["file_name"]
-            unique_name = get_unique_filename(filename_set, original_name)
 
-            id_map[img["id"]] = new_id
+        for img in data["images"]:
+            original_id = img["id"]
+            original_name = img["file_name"]
+            anns_for_img = [ann for ann in data["annotations"] if ann["image_id"] == original_id]
+
+            # Ne garder que les annotations valides
+            valid_anns = []
+            for ann in anns_for_img:
+                bbox = ann.get("bbox")
+                if bbox and len(bbox) == 4 and all(v is not None for v in bbox):
+                    valid_anns.append(ann)
+
+            if len(valid_anns) == 0:
+                print(f"🛑 Image ignorée : {original_name} (aucune annotation valide)")
+                continue
+
+            new_img_id = image_id_offset
+            unique_name = get_unique_filename(filename_set, original_name)
+            id_map[original_id] = new_img_id
+
             merged["images"].append({
-                "id": new_id,
+                "id": new_img_id,
                 "file_name": unique_name,
                 "width": img["width"],
                 "height": img["height"]
             })
 
-        for ann in data["annotations"]:
-            merged["annotations"].append({
-                "id": ann["id"] + annotation_id_offset,
-                "image_id": id_map[ann["image_id"]],
-                "category_id": category_id_map[ann["category_id"]],
-                "bbox": ann["bbox"],
-                "area": ann.get("area", ann["bbox"][2] * ann["bbox"][3]),
-                "iscrowd": ann.get("iscrowd", 0)
-            })
+            for ann in valid_anns:
+                merged["annotations"].append({
+                    "id": annotation_id_offset,
+                    "image_id": new_img_id,
+                    "category_id": category_id_map[ann["category_id"]],
+                    "bbox": ann["bbox"],
+                    "area": ann.get("area", ann["bbox"][2] * ann["bbox"][3]),
+                    "iscrowd": ann.get("iscrowd", 0)
+                })
+                annotation_id_offset += 1
 
-        image_id_offset = max(img["id"] for img in merged["images"]) + 1
-        annotation_id_offset = max(ann["id"] for ann in merged["annotations"]) + 1
+            image_id_offset += 1
 
     return merged
 
 def add_empty_images(merged_data, empty_folder):
-    start_id = max(img["id"] for img in merged_data["images"]) + 1
+    start_id = max((img["id"] for img in merged_data["images"]), default=0) + 1
     filename_set = {img["file_name"] for img in merged_data["images"]}
     i = 0
 
@@ -104,7 +119,7 @@ def add_empty_images(merged_data, empty_folder):
                 })
                 i += 1
             except Exception as e:
-                print(f"Erreur image vide {filename}: {e}")
+                print(f"⚠️ Erreur image vide {filename}: {e}")
     return merged_data
 
 def split_dataset(merged_data, split=(0.7, 0.2, 0.1)):
