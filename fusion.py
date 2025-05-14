@@ -174,39 +174,20 @@ def save_splits_with_images(split_data, output_dir, all_image_dirs):
 def main():
     # === À PERSONNALISER ===
     coco_json_paths = [
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco1.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco2.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco3.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco4.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco5.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco6.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco7.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco8.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco9.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco10.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco11.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco12.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco13.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco14.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco15.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco16.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco17.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco18.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco19.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco20.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco21.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco22.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco23.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco24.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco25.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco26.json",
-        "/home/mateo/Travail/coco_fusion_ofb/project/coco27.json"
+        "/home/mateo/ssd_bis/datasets_coco/all/an1.json",
+        "/home/mateo/ssd_bis/datasets_coco/all/an2.json",
+        "/home/mateo/ssd_bis/datasets_coco/all/an3.json",
+        "/home/mateo/ssd_bis/datasets_coco/all/an4.json",
+        "/home/mateo/ssd_bis/datasets_coco/all/an5.json",
+        "/home/mateo/ssd_bis/datasets_coco/all/an6.json",
+        "/home/mateo/ssd_bis/datasets_coco/all/an7.json",
+        "/home/mateo/ssd_bis/datasets_coco/all/an8.json"
     ]
     image_folders = [
-        "/home/mateo/Travail/coco_fusion_ofb/project/images",        # images annotées
-        "/home/mateo/Travail/coco_fusion_ofb/project/empty_images"   # images sans annotations
+        "/home/mateo/ssd_bis/datasets_coco/all/images",        # images annotées
+        "/home/mateo/ssd_bis/datasets_coco/vides/all_empty"   # images sans annotations
     ]
-    output_dir = "/home/mateo/Travail/coco_fusion_ofb/project/output"
+    output_dir = "/home/mateo/ssd_bis/datasets_coco/all_final"
     split_ratio = (0.7, 0.2, 0.1)
 
     # === Pipeline ===
