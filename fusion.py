@@ -174,20 +174,15 @@ def save_splits_with_images(split_data, output_dir, all_image_dirs):
 def main():
     # === À PERSONNALISER ===
     coco_json_paths = [
-        "/home/mateo/ssd_bis/datasets_coco/all/an1.json",
-        "/home/mateo/ssd_bis/datasets_coco/all/an2.json",
-        "/home/mateo/ssd_bis/datasets_coco/all/an3.json",
-        "/home/mateo/ssd_bis/datasets_coco/all/an4.json",
-        "/home/mateo/ssd_bis/datasets_coco/all/an5.json",
-        "/home/mateo/ssd_bis/datasets_coco/all/an6.json",
-        "/home/mateo/ssd_bis/datasets_coco/all/an7.json",
-        "/home/mateo/ssd_bis/datasets_coco/all/an8.json"
+        "/home/mateo/ssd_bis/datasets_coco_ok/all_ok/annotations_coco_multi.json",
+        "/home/mateo/ssd_bis/datasets_coco_ok/all_ok/dataset.json",
+        "/home/mateo/ssd_bis/datasets_coco_ok/all_ok/dataset_2.json"
     ]
     image_folders = [
-        "/home/mateo/ssd_bis/datasets_coco/all/images",        # images annotées
-        "/home/mateo/ssd_bis/datasets_coco/vides/all_empty"   # images sans annotations
+        "/home/mateo/ssd_bis/datasets_coco_ok/all_ok/images",        # images annotées
+        "/home/mateo/ssd_bis/datasets_coco_ok/all_ok/vides_ok"   # images sans annotations
     ]
-    output_dir = "/home/mateo/ssd_bis/datasets_coco/all_final"
+    output_dir = "/home/mateo/ssd_bis/datasets_coco_ok/all_final_ok"
     split_ratio = (0.7, 0.2, 0.1)
 
     # === Pipeline ===
