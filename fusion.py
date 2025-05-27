@@ -174,15 +174,13 @@ def save_splits_with_images(split_data, output_dir, all_image_dirs):
 def main():
     # === À PERSONNALISER ===
     coco_json_paths = [
-        "/home/mateo/ssd_bis/datasets_coco_ok/all_ok/annotations_coco_multi.json",
-        "/home/mateo/ssd_bis/datasets_coco_ok/all_ok/dataset.json",
-        "/home/mateo/ssd_bis/datasets_coco_ok/all_ok/dataset_2.json"
+        "/home/mateo/ssd_bis/labelme_axelle_2/dataset.json",
     ]
     image_folders = [
-        "/home/mateo/ssd_bis/datasets_coco_ok/all_ok/images",        # images annotées
-        "/home/mateo/ssd_bis/datasets_coco_ok/all_ok/vides_ok"   # images sans annotations
+        "/home/mateo/ssd_bis/labelme_axelle_2/images",        # images annotées
+        "/home/mateo/ssd_bis/labelme_axelle_2/vides"   # images sans annotations
     ]
-    output_dir = "/home/mateo/ssd_bis/datasets_coco_ok/all_final_ok"
+    output_dir = "//home/mateo/ssd_bis/labelme_axelle_2/axelle_2_ok"
     split_ratio = (0.7, 0.2, 0.1)
 
     # === Pipeline ===
